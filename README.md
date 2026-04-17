@@ -101,7 +101,7 @@ Sincerely,
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/medicare-mac-analyzer.git
+git clone https://git clone https://github.com/Chidvy/Medicare-Mac-Analyzer.git
 cd medicare-mac-analyzer
 
 # Install dependencies
