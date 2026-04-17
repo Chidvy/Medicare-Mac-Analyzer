@@ -9,7 +9,7 @@ regulatory consequences.
 
 ## The Problem This Solves
 
-Medicare DME and home health providers receive dozens of MAC letters monthly — complaints, ADRs, overpayment demands, audit notices. Each has different deadlines, required documentation, and response strategies. Providers manually read each letter, decide priority, pull records, and draft responses.
+Medicare Home health providers receive dozens of MAC letters monthly — complaints, ADRs, overpayment demands, audit notices. Each has different deadlines, required documentation, and response strategies. Providers manually read each letter, decide priority, pull records, and draft responses.
 
 Miss a 30-day complaint deadline → compliance violation.  
 Miss a 45-day ADR window → automatic claim denial.  
