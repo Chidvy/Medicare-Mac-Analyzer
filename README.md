@@ -1,15 +1,15 @@
 An LLM-powered compliance triage system that automates the analysis of 
-Medicare Administrative Contractor (MAC) correspondence — classifying 
+Medicare Administrative Contractor (MAC) correspondence classifying 
 letter type, extracting structured compliance data, generating prioritized 
 action checklists, and drafting response letters.
 
-Built to eliminate manual triage bottlenecks in DME and home health 
+Built to eliminate manual triage bottlenecks in Home health 
 provider workflows, where missed deadlines carry direct financial and 
 regulatory consequences.
 
 ## The Problem This Solves
 
-Medicare Home health providers receive dozens of MAC letters monthly — complaints, ADRs, overpayment demands, audit notices. Each has different deadlines, required documentation, and response strategies. Providers manually read each letter, decide priority, pull records, and draft responses.
+Medicare Home health providers receive dozens of MAC letters monthly complaints, ADRs, overpayment demands, audit notices. Each has different deadlines, required documentation, and response strategies. Providers manually read each letter, decide priority, pull records, and draft responses.
 
 Miss a 30-day complaint deadline → compliance violation.  
 Miss a 45-day ADR window → automatic claim denial.  
@@ -41,16 +41,15 @@ Given any MAC/CMS letter (pasted as text), the tool:
 
 LETTER TYPE:    COMPLAINT
 MAC/CONTRACTOR: CGS DME MAC
-JURISDICTION:   Jurisdiction B
-DCN:            SYNTH-2025-0042
+JURISDICTION:   Jurisdiction X
 HCPCS CODE:     XXXXX (Orthotic Equipment)
-DEADLINE:       30 days from receipt
+DEADLINE:       XX days from receipt
 
 ** MEDIUM PRIORITY **
   30-day hard deadline for equipment pickup and fax confirmation required.
 
 ACTION CHECKLIST:
-  [ ] Contact beneficiary within 5 business days
+  [ ] Contact beneficiary within X business days
   [ ] Schedule equipment pickup appointment
   [ ] Obtain beneficiary signature on pickup confirmation
   [ ] Fax pickup documentation to Complaint Screening department
@@ -73,7 +72,7 @@ CONTACT INFO:
 CGS DME MAC Jurisdiction B
 Complaint Screening Department
 
-Re: DCN SYNTH-2025-0042 — Beneficiary Equipment Pickup Request
+Re:  Beneficiary Equipment Pickup Request
 
 Dear CGS Complaint Screening Team,
 
@@ -81,7 +80,7 @@ We are writing to acknowledge receipt of your correspondence dated MM/DD/YYYY
 regarding the above-referenced beneficiary and DCN.
 
 We have initiated the equipment pickup process and are coordinating directly with
-the beneficiary to schedule retrieval of the L0651 orthotic equipment.
+the beneficiary to schedule retrieval of the orthotic equipment.
 
 Please contact [CONTACT NAME] at [PHONE] with any questions.
 
@@ -145,7 +144,6 @@ Output prints to terminal and optionally saves to a timestamped JSON file.
 
 | Choice | Rationale |
 |---|---|
-
 | JSON-first extraction | Enables downstream use: dashboards, trackers, alerts |
 | Two-pass architecture | Separate extraction from response generation for cleaner outputs |
 | Synthetic samples built-in | Enables live demo without any real provider data |
