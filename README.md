@@ -43,7 +43,7 @@ LETTER TYPE:    COMPLAINT
 MAC/CONTRACTOR: CGS DME MAC
 JURISDICTION:   Jurisdiction B
 DCN:            SYNTH-2025-0042
-HCPCS CODE:     L0651 (Orthotic Equipment)
+HCPCS CODE:     XXXXX (Orthotic Equipment)
 DEADLINE:       30 days from receipt
 
 ** MEDIUM PRIORITY **
@@ -62,8 +62,7 @@ DOCUMENTS TO PULL:
   [ ] Equipment serial number record
 
 CONTACT INFO:
-  Fax:   615-782-4624
-  Phone: 866-590-6727
+  Phone: XXXXXXX
 
 ============================================================
   DRAFT RESPONSE LETTER
@@ -78,12 +77,11 @@ Re: DCN SYNTH-2025-0042 — Beneficiary Equipment Pickup Request
 
 Dear CGS Complaint Screening Team,
 
-We are writing to acknowledge receipt of your correspondence dated October 9, 2025
+We are writing to acknowledge receipt of your correspondence dated MM/DD/YYYY
 regarding the above-referenced beneficiary and DCN.
 
 We have initiated the equipment pickup process and are coordinating directly with
-the beneficiary to schedule retrieval of the L0651 orthotic equipment. Pickup
-confirmation documentation will be faxed to 615-782-4624 upon completion.
+the beneficiary to schedule retrieval of the L0651 orthotic equipment.
 
 Please contact [CONTACT NAME] at [PHONE] with any questions.
 
