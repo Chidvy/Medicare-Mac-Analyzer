@@ -1,366 +1,181 @@
-\# Earnings Report Analyzer
+# Medicare MAC Letter Analyzer
 
+A command-line tool powered by **Claude (Anthropic API)** that analyzes Medicare Administrative Contractor (MAC) correspondence letters — extracting structured data, classifying letter type, generating a prioritized action checklist, and drafting a response letter.
 
+Built from firsthand observation of how DME and home health providers struggle to triage and respond to high-volume MAC correspondence under tight deadlines.
 
-A command-line tool that uses \*\*Claude (Anthropic)\*\* to extract structured financial metrics and generate analyst-style narratives from earnings report PDFs — with an interactive Q\&A interface.
+> **Disclaimer:** Built using 100% synthetic sample data. Not intended for use with real PHI. For demonstration and portfolio purposes only.
 
+---
 
+## The Problem This Solves
 
-Built as a practical exploration of LLM-powered document analysis applied to financial data.
+Medicare DME and home health providers receive dozens of MAC letters monthly — complaints, ADRs, overpayment demands, audit notices. Each has different deadlines, required documentation, and response strategies. Providers manually read each letter, decide priority, pull records, and draft responses.
 
+Miss a 30-day complaint deadline → compliance violation.  
+Miss a 45-day ADR window → automatic claim denial.  
+Miss an overpayment response → interest accrual at ~11% annually.
 
+This tool triages letters in seconds, not hours.
 
-\---
+---
 
+## What It Does
 
+Given any MAC/CMS letter (pasted as text), the tool:
 
-\## What It Does
+1. **Classifies** the letter type: Complaint, ADR, Overpayment, Audit, Denial, or General
+2. **Extracts** structured fields: MAC contractor, DCN, HCPCS code, dollar amount at risk, deadline
+3. **Prioritizes** HIGH / MEDIUM / LOW with a one-line reason
+4. **Generates** a step-by-step action checklist specific to that letter type
+5. **Drafts** a professional response letter ready for compliance team review
+6. **Saves** structured JSON output for downstream tracking or dashboard use
 
+---
 
-
-Given any earnings report or earnings call transcript (PDF or raw text), the tool:
-
-
-
-1\. \*\*Extracts structured metrics\*\* — revenue, EPS, YoY changes, beats/misses vs estimates, guidance, key themes, risks
-
-2\. \*\*Writes an analyst narrative\*\* — 3-paragraph sell-side style summary with specific figures
-
-3\. \*\*Opens interactive Q\&A\*\* — ask natural language questions about the document, with multi-turn conversation memory
-
-
-
-All powered by Claude's `claude-haiku-4-5` model via the Anthropic API.
-
-
-
-\---
-
-
-
-\## Demo
-
-
+## Sample Output
 
 ```
-
-$ python earnings\_analyzer.py apple\_q4\_2024.pdf
-
-
-
+============================================================
+  MEDICARE MAC LETTER ANALYSIS
 ============================================================
 
-&#x20; EARNINGS REPORT ANALYZER  |  Powered by Claude
+LETTER TYPE:    COMPLAINT
+MAC/CONTRACTOR: CGS DME MAC
+JURISDICTION:   Jurisdiction B
+DCN:            SYNTH-2025-0042
+HCPCS CODE:     L0651 (Orthotic Equipment)
+DEADLINE:       30 days from receipt
+
+** MEDIUM PRIORITY **
+  30-day hard deadline for equipment pickup and fax confirmation required.
+
+ACTION CHECKLIST:
+  [ ] Contact beneficiary within 5 business days
+  [ ] Schedule equipment pickup appointment
+  [ ] Obtain beneficiary signature on pickup confirmation
+  [ ] Fax pickup documentation to Complaint Screening department
+  [ ] Log case closure in compliance tracker
+
+DOCUMENTS TO PULL:
+  [ ] Original delivery documentation
+  [ ] Beneficiary signature on delivery
+  [ ] Equipment serial number record
+
+CONTACT INFO:
+  Fax:   615-782-4624
+  Phone: 866-590-6727
 
 ============================================================
-
-
-
-&#x20; Loading PDF: apple\_q4\_2024.pdf
-
-&#x20; Extracted 42,891 characters from 18 pages.
-
-
-
-\[1/2] Extracting structured metrics...
-
-\[2/2] Writing analyst narrative summary...
-
-
-
+  DRAFT RESPONSE LETTER
 ============================================================
+[PROVIDER NAME]
+[DATE]
 
-STRUCTURED EXTRACTION
+CGS DME MAC Jurisdiction B
+Complaint Screening Department
 
+Re: DCN SYNTH-2025-0042 — Beneficiary Equipment Pickup Request
+
+Dear CGS Complaint Screening Team,
+
+We are writing to acknowledge receipt of your correspondence dated October 9, 2025
+regarding the above-referenced beneficiary and DCN.
+
+We have initiated the equipment pickup process and are coordinating directly with
+the beneficiary to schedule retrieval of the L0651 orthotic equipment. Pickup
+confirmation documentation will be faxed to 615-782-4624 upon completion.
+
+Please contact [CONTACT NAME] at [PHONE] with any questions.
+
+Sincerely,
+[SIGNATURE]
+[PROVIDER NAME]
 ============================================================
-
-Company:    Apple Inc.
-
-Period:     Q4 FY2024
-
-Revenue:    $94.9B
-
-&#x20; YoY:      +6.1%
-
-&#x20; vs Est:   Beat by \~$1.2B
-
-
-
-EPS:        $1.64
-
-&#x20; YoY:      +12%
-
-&#x20; vs Est:   Beat
-
-
-
-Key Metrics:
-
-&#x20; • Services Revenue: $24.97B — Record quarter, up 12% YoY
-
-&#x20; • iPhone Revenue: $46.2B — Up 6% YoY
-
-&#x20; • Mac Revenue: $7.7B — Up 2% YoY
-
-
-
-Guidance:
-
-&#x20; Next Q:   Revenue in the range of $89B–$93B
-
-
-
-Key Themes: Services growth | AI integration | Emerging markets
-
-Risks:      China competition | Regulatory pressure
-
-Mgmt Tone:  Bullish — Management emphasized record Services performance and AI-driven product roadmap
-
-
-
-============================================================
-
-ANALYST SUMMARY
-
-============================================================
-
-Apple reported strong fourth-quarter results, with revenue of $94.9B exceeding consensus by approximately 
-
-$1.2B and EPS of $1.64 beating estimates by $0.08...
-
-
-
-\[continues...]
-
-
-
-============================================================
-
-Q\&A Mode — Ask anything about Apple's earnings
-
-Type 'exit' or 'quit' to stop.
-
-
-
-You: What drove the Services beat?
-
-Analyst: Services revenue of $24.97B, a record quarter, was driven by growth across the App Store,
-
-Apple Music, iCloud, and AppleCare. Management cited 1B+ paid subscriptions globally...
-
 ```
 
+---
 
+## Setup
 
-\---
-
-
-
-\## Setup
-
-
-
-\*\*Requirements:\*\* Python 3.9+, Anthropic API key (\[get one here](https://console.anthropic.com))
-
-
+**Requirements:** Python 3.9+, Anthropic API key ([get one here](https://console.anthropic.com))
 
 ```bash
+# Clone the repo
+git clone https://github.com/yourusername/medicare-mac-analyzer.git
+cd medicare-mac-analyzer
 
-\# Clone the repo
-
-git clone https://github.com/yourusername/earnings-analyzer.git
-
-cd earnings-analyzer
-
-
-
-\# Install dependencies
-
+# Install dependencies
 pip install -r requirements.txt
 
+# Set your API key (Windows)
+set ANTHROPIC_API_KEY=your_key_here
 
-
-\# Set your API key
-
-export ANTHROPIC\_API\_KEY=your\_key\_here
-
-\# Or copy .env.example to .env and fill it in
-
+# Set your API key (Mac/Linux)
+export ANTHROPIC_API_KEY=your_key_here
 ```
 
+---
 
-
-\---
-
-
-
-\## Usage
-
-
+## Usage
 
 ```bash
-
-\# Analyze a PDF (full workflow: extract + summarize + Q\&A)
-
-python earnings\_analyzer.py report.pdf
-
-
-
-\# Skip the interactive Q\&A
-
-python earnings\_analyzer.py report.pdf --no-qa
-
-
-
-\# Save structured JSON output
-
-python earnings\_analyzer.py report.pdf --output results.json
-
-
-
-\# Analyze raw text instead of a PDF
-
-python earnings\_analyzer.py --text "Revenue was $5.2B, up 12% YoY..."
-
+python analyzer.py
 ```
 
+You will be prompted to either:
+- Select one of 3 built-in synthetic sample letters (complaint, ADR, overpayment demand)
+- Paste your own letter text
 
+Output prints to terminal and optionally saves to a timestamped JSON file.
 
-\*\*Where to get earnings PDFs:\*\*
+---
 
-\- \[SEC EDGAR](https://www.sec.gov/cgi-bin/browse-edgar) — search any public company, look for 10-Q/10-K filings
+## Letter Types Supported
 
-\- Company investor relations pages (e.g. Apple, Microsoft, J\&J, CVS Health)
+| Type | Description |
+|---|---|
+| COMPLAINT | Beneficiary complaint — equipment pickup, billing dispute |
+| ADR | Additional Documentation Request — records to support claim |
+| OVERPAYMENT | Payer demanding repayment with interest timeline |
+| AUDIT | Pre/post-payment audit — records review required |
+| DENIAL | Claim denial with appeal window |
+| GENERAL | Informational correspondence |
 
-\- Earnings call transcripts from \[Motley Fool](https://www.fool.com/earnings-call-transcripts/) (copy/paste text)
+---
 
-
-
-\---
-
-
-
-\## Example JSON Output
-
-
-
-```json
-
-{
-
-&#x20; "structured\_metrics": {
-
-&#x20;   "company": "Apple Inc.",
-
-&#x20;   "period": "Q4 FY2024",
-
-&#x20;   "revenue": {
-
-&#x20;     "actual": "$94.9B",
-
-&#x20;     "yoy\_change": "+6.1%",
-
-&#x20;     "vs\_estimate": "Beat by \~$1.2B"
-
-&#x20;   },
-
-&#x20;   "earnings\_per\_share": {
-
-&#x20;     "actual": "$1.64",
-
-&#x20;     "yoy\_change": "+12%",
-
-&#x20;     "vs\_estimate": "Beat"
-
-&#x20;   },
-
-&#x20;   "key\_metrics": \[...],
-
-&#x20;   "guidance": {...},
-
-&#x20;   "key\_themes": \[...],
-
-&#x20;   "management\_tone": "Bullish — ..."
-
-&#x20; },
-
-&#x20; "narrative\_summary": "Apple reported strong fourth-quarter results..."
-
-}
-
-```
-
-
-
-\---
-
-
-
-\## Design Decisions
-
-
+## Design Decisions
 
 | Choice | Rationale |
-
 |---|---|
+| `claude-haiku-4-5` | Fast, cost-effective for structured extraction tasks |
+| JSON-first extraction | Enables downstream use: dashboards, trackers, alerts |
+| Two-pass architecture | Separate extraction from response generation for cleaner outputs |
+| Synthetic samples built-in | Enables live demo without any real provider data |
+| Priority classification | Mirrors real compliance triage logic (deadline + dollar amount) |
 
-| `claude-haiku-4-5` model | Fast and cost-effective for document extraction tasks |
+---
 
-| Two-pass architecture | Separate structured extraction from narrative generation for cleaner outputs |
+## Potential Extensions
 
-| 80K char truncation | Stays safely within context limits while covering most earnings docs |
+- **Batch processing** — analyze a folder of letters, output summary dashboard
+- **Deadline tracker** — parse dates, calculate days remaining, sort by urgency
+- **Streamlit UI** — drag-and-drop letter upload with visual priority queue
+- **Appeal letter generator** — extend to full ADR appeal with medical necessity arguments
+- **Multi-payer support** — extend beyond Medicare to Medicaid MACs and commercial payers
 
-| Multi-turn Q\&A | Maintains conversation history to support follow-up questions |
+---
 
-| JSON-first extraction | Structured output enables downstream use (dashboards, alerts, comparisons) |
+## Tech Stack
 
+- Python 3.9+
+- [Anthropic Python SDK](https://github.com/anthropic/anthropic-sdk-python)
+- Claude `claude-haiku-4-5` model
 
+---
 
-\---
+## Author
 
-
-
-\## Potential Extensions
-
-
-
-\- \*\*Batch processing\*\* — run across multiple quarters and track metric trends over time
-
-\- \*\*Comparison mode\*\* — compare two companies' earnings side-by-side
-
-\- \*\*Alerts\*\* — flag when guidance misses consensus by a threshold
-
-\- \*\*Healthcare variant\*\* — adapt extraction schema for clinical trial readouts or hospital earnings (CMS reporting)
-
-\- \*\*Streamlit UI\*\* — drag-and-drop PDF interface with charts
-
-
-
-\---
-
-
-
-\## Tech Stack
-
-
-
-\- Python 3.9+
-
-\- \[Anthropic Python SDK](https://github.com/anthropic/anthropic-sdk-python)
-
-\- \[pypdf](https://github.com/py-pdf/pypdf) for PDF text extraction
-
-
-
-\---
-
-
-
-\## Author
-
-
-
-\*\*Durga Meduri\*\* — Business Analytics Manager | MS Business Analytics, UMass Boston  
-
-
-
+**Durga Meduri** — Business Analytics Manager | MS Business Analytics, UMass Boston  
+Built from direct observation of compliance workflows in healthcare operations.  
+[LinkedIn](https://www.linkedin.com/in/durga-c-meduri/) | [GitHub](https://github.com/Chidvy)
