@@ -162,7 +162,7 @@ Output prints to terminal and optionally saves to a timestamped JSON file.
 ---
 
 ## Tech Stack
-
+-Large Language Model API (Claude / OpenAI compatible)
 - Python 3.9+
 - [Anthropic Python SDK](https://github.com/anthropic/anthropic-sdk-python)
 
