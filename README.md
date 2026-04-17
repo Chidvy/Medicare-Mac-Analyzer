@@ -101,7 +101,7 @@ Sincerely,
 
 ```bash
 # Clone the repo
-git clone https://git clone https://github.com/Chidvy/Medicare-Mac-Analyzer.git
+git clone  https://github.com/Chidvy/Medicare-Mac-Analyzer.git
 cd medicare-mac-analyzer
 
 # Install dependencies
@@ -147,7 +147,7 @@ Output prints to terminal and optionally saves to a timestamped JSON file.
 
 | Choice | Rationale |
 |---|---|
-| `claude-haiku-4-5` | Fast, cost-effective for structured extraction tasks |
+
 | JSON-first extraction | Enables downstream use: dashboards, trackers, alerts |
 | Two-pass architecture | Separate extraction from response generation for cleaner outputs |
 | Synthetic samples built-in | Enables live demo without any real provider data |
