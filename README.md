@@ -1,12 +1,11 @@
-# Medicare MAC Letter Analyzer
+An LLM-powered compliance triage system that automates the analysis of 
+Medicare Administrative Contractor (MAC) correspondence — classifying 
+letter type, extracting structured compliance data, generating prioritized 
+action checklists, and drafting response letters.
 
-A command-line tool powered by **Claude (Anthropic API)** that analyzes Medicare Administrative Contractor (MAC) correspondence letters — extracting structured data, classifying letter type, generating a prioritized action checklist, and drafting a response letter.
-
-Built from firsthand observation of how DME and home health providers struggle to triage and respond to high-volume MAC correspondence under tight deadlines.
-
-> **Disclaimer:** Built using 100% synthetic sample data. Not intended for use with real PHI. For demonstration and portfolio purposes only.
-
----
+Built to eliminate manual triage bottlenecks in DME and home health 
+provider workflows, where missed deadlines carry direct financial and 
+regulatory consequences.
 
 ## The Problem This Solves
 
@@ -170,7 +169,7 @@ Output prints to terminal and optionally saves to a timestamped JSON file.
 
 - Python 3.9+
 - [Anthropic Python SDK](https://github.com/anthropic/anthropic-sdk-python)
-- Claude `claude-haiku-4-5` model
+
 
 ---
 
